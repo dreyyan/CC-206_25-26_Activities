@@ -1,4 +1,4 @@
-// [CONCEPT] ENUM (Custom Data Type)
+// [CONCEPT] ENUM
 enum AnimalKingdom {
   MAMMAL,
   BIRD,
@@ -21,18 +21,23 @@ class Animal {
 
   Animal(this.Name, this.Kingdom, this.Dob, this.Numlegs);
 
-  // [CONCEPT] FAT ARROW FUNCTION
-  void Walk(String direction) =>
+  void Walk(String direction) {
+    // [CONCEPT] CONDITIONAL
+    if (Numlegs == 0) {
+      print("The $Name can't walk.");
+    } else {
       print("The $Name is walking to the $direction.");
+    }
+  }
 
   String displayInfo() {
     // [CONCEPT] MULTILINE STRING
     return """
-      Name: $Name
-      Kingdom: $Kingdom
-      Date of Birth: ${Dob.toLocal()}
-      Number of Legs: $Numlegs
-      """;
+Name: $Name
+Kingdom: $Kingdom
+Date of Birth: ${Dob.toLocal()}
+Number of Legs: $Numlegs
+""";
   }
 }
 
@@ -41,7 +46,6 @@ class Pet {
   String? Nickname;
   int Kindness = 0;
 
-  // Default constructor
   Pet();
 
   // [CONCEPT] NAMED CONSTRUCTOR
@@ -70,16 +74,18 @@ class Pet {
   }
 }
 
-// [CONCEPT] ENTRY POINT (main)
 void main() {
-  // [CONCEPT] LIST + TYPE INFERENCE
-  var ZOO1 = [
+  // [CONCEPT] LIST
+  var ZOO = [
     Animal("Lion", AnimalKingdom.MAMMAL, DateTime(2018, 5, 10), 4),
     Animal("Eagle", AnimalKingdom.BIRD, DateTime(2020, 3, 15), 2),
     Animal("Snake", AnimalKingdom.REPTILE, DateTime(2019, 7, 20), 0),
     Animal("Frog", AnimalKingdom.AMPHIBIAN, DateTime(2021, 1, 5), 4),
     Animal("Shark", AnimalKingdom.FISH, DateTime(2017, 9, 12), 0),
   ];
+
+  // [CONCEPT] SPREAD OPERATOR
+  var ZOO1 = [...ZOO];
 
   print("-=-=-=- Zoo -=-=-=-");
 
@@ -90,7 +96,6 @@ void main() {
     print("-------------------");
   }
 
-  // [CONCEPT] LIST + OBJECT CREATION (no 'new')
   var PET_HOME = [
     Pet.withNickname("Buddy"),
     Pet.withNickname("Milo"),
@@ -99,11 +104,9 @@ void main() {
 
   print("\n-=-=-=- Pet Home -=-=-=-");
 
-  // Make pets negative
   PET_HOME[0].Kick(200);
   PET_HOME[2].Kick(50);
 
-  // Make pets above 1000
   PET_HOME[1].feed(600);
   PET_HOME[1].pet(100);
 
@@ -112,20 +115,4 @@ void main() {
   for (var pet in PET_HOME) {
     print("Nickname: ${pet.Nickname}, Kindness: ${pet.Kindness}");
   }
-
-  // [CONCEPT] MAP (Dictionary)
-  Map<String, int> petSummary = {
-    "Total Pets": PET_HOME.length,
-    "First Pet Kindness": PET_HOME[0].Kindness,
-  };
-
-  print("\nPet Summary: $petSummary");
-
-  // [CONCEPT] SPREAD OPERATOR
-  var extraAnimals = [
-    Animal("Dog", AnimalKingdom.MAMMAL, DateTime(2022, 1, 1), 4)
-  ];
-
-  var ALL_ANIMALS = [...ZOO1, ...extraAnimals];
-  print("\nTotal animals after spread: ${ALL_ANIMALS.length}");
 }
